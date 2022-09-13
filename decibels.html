@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decibels and perception toy</title>
+  </head>
+  <body>
+    <div>
+      <h1>Decibels & perception toy</h1>
+    </div>
+
+    <p>
+      These toys are designed to show how the decibel scale fits with our
+      logarithmic perception.
+    </p>
+
+    <hr />
+
+    <div>
+      <h2>Decibels in sound amplitude</h2>
+    </div>
+
+    <div>
+      <p style="color: red">Be sure the volume is not up too high!</p>
+    </div>
+
+    <div>
+      <p>
+        This section is designed to highlight the Just Noticeable Difference
+        (JND) of sound. On clicking play, the sound level will play at roughly
+        -14 dB in level. When you click the various dB increase buttons, they
+        set the gain to the requested amount above the base gain level of -14
+        dB. They are not cumulative, clicking each button resets the level to
+        the requested amount above base only. Use the slider to set a custom
+        increase level if desired. Clicking play again will reset to -14 dB.
+      </p>
+
+      <p>
+        Use the buttons to find what you think is the JND and doubling point of
+        sound is. Typically people find 1 dB to be the JND and 10 dB to be the
+        doubling point, although with pink noise this might not track exactly
+        (it changes with frequency!).
+      </p>
+    </div>
+
+    <button type="button" onclick="playSound()">Play sound</button>
+    <button type="button" onclick="stopSound()">Stop sound</button>
+
+    <button type="button" onclick="increaseSound(0.1)">Increase 0.1 dB</button>
+    <button type="button" onclick="increaseSound(0.5)">Increase 0.5 dB</button>
+    <button type="button" onclick="increaseSound(1)">Increase 1 dB</button>
+    <button type="button" onclick="increaseSound(3)">Increase 3 dB</button>
+    <button type="button" onclick="increaseSound(6)">Increase 6 dB</button>
+    <button type="button" onclick="increaseSound(10)">Increase 10 dB</button>
+
+    <div class="slidecontainer" style="padding-top: 30px">
+      <p>Custom gain value:</p>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+        class="slider"
+        id="myRange"
+      />
+      <!-- <p>Gain: <span id="outval"></span> dB.</p> -->
+      <button type="button" onclick="sliderChange()">
+        Increase <span id="outval"></span> dB
+      </button>
+    </div>
+
+    <hr />
+    <h2>Decibels in sound frequency</h2>
+  </div>
+
+  <div>
+    <p style="color: red">Be sure the volume is not up too high!</p>
+  </div>
+
+  <div>
+    <p>
+      This section was a later addition, which I did think twice about. The reason is that while frequency perception is a logarithmic sense, much in the same way as most of our senses, decibels are NOT generally used to express changes in frequency. I didn't want this to be confusing, so don't mistake this!
+    </p>
+
+    <!-- <p>
+
+    </p> -->
+
+
+  </div>
+
+  <div>
+  <button type="button" onclick="playOsc(100)">Play sound</button>
+  <button type="button" onclick="stopOsc()">Stop sound</button>
+
+  <div class="slidecontainer" style="padding-top: 30px">
+    <p>Custom base frequency: <span id="baseFreq"></span></p>
+    <input
+      type="range"
+      min="20"
+      max="20000"
+      value="0"
+      class="slider"
+      id="baseFrequency"
+    />
+</div>
+
+<div>
+  <button type="button" onclick="increaseFrequency(0.1)">Increase 0.1 dB</button>
+  <button type="button" onclick="increaseFrequency(0.5)">Increase 0.5 dB</button>
+  <button type="button" onclick="increaseFrequency(1)">Increase 1 dB</button>
+  <button type="button" onclick="increaseFrequency(3)">Increase 3 dB</button>
+  <button type="button" onclick="increaseFrequency(6)">Increase 6 dB</button>
+  <button type="button" onclick="increaseFrequency(10)">Increase 10 dB</button>
+</div>
+  <div class="slidecontainer" style="padding-top: 30px">
+    <p>Custom frequency increase: <span id="customFrequency"></span> dB</p>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="0"
+      class="slider"
+      id="frequencySlider"
+    />
+    <!-- <p>Gain: <span id="outval"></span> dB.</p> -->
+    <button type="button" onclick="increaseFrequency(frequencyIncreaseSlider.value)">
+      Increase <span id="outval"></span> dB
+    </button>
+  </div>
+    <hr />
+
+    <div>
+      <h2>Decibels in numerical perception</h2>
+    </div>
+
+    <p>
+      Similarly to sound, your perception of numbers of objects on a screen is
+      logarithmic. In this toy, click the "dots start" buttons to set the base
+      level of dots. The increase buttons then increase that number by the
+      decibel amounts shown. The natural numbers are shown below each box to
+      show you the actual numbers of dots in each box.
+    </p>
+
+    <p>
+      You might see that the JND is around 1 dB of increase in the dots,
+      regardless how many there are initially in the first box. Experiment to
+      see what you think a perceptual doubling is too!
+    </p>
+
+
+    <!-- Create div where the graphs will take place -->
+
+    <div style="padding: 50px" id="d3_before"></div>
+
+    <button type="button" onclick="setInitialDots(20)">20 dots start</button>
+    <button type="button" onclick="setInitialDots(100)">100 dots start</button>
+    <button type="button" onclick="increaseDots(0.1)">Increase 0.1 dB</button>
+    <button type="button" onclick="increaseDots(0.5)">Increase 0.5 dB</button>
+    <button type="button" onclick="increaseDots(1)">Increase 1 dB</button>
+    <button type="button" onclick="increaseDots(3)">Increase 3 dB</button>
+    <button type="button" onclick="increaseDots(6)">Increase 6 dB</button>
+    <button type="button" onclick="increaseDots(10)">Increase 10 dB</button>
+
+    <div class="slidecontainer" style="padding-top: 30px">
+      <p>Custom increase:</p>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+        class="slider"
+        id="numericalSlider"
+      />
+      <!-- <p>Increase: <span id="numericalOutval"></span> dB.</p> -->
+      <button type="button" onclick="increaseDots(numericalSliderGain)">
+        Increase <span id="numericalOutval"></span> dB
+      </button>
+    </div>
+
+    <!-- dependencies -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+
+    <!-- Running my scripts -->
+    <script src="decibels.js"></script>
+    <script src="decibelFrequency.js"></script>
+    <script src="decibelNumerical.js"></script>
+
+
+  </body>
+</html>
